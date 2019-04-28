@@ -1,0 +1,26 @@
+*.js linguist-language=java
+*.css linguist-language=java
+*.html linguist-language=java
+Shader "Custom/BaseForm1" {
+  Properties {													//定义属性块
+    _Color ("Main Color", Color) = (1,1,1,0.5)							//定义主颜色数值
+    _SpecColor("Sec Color",Color)=(1,1,1,1)							//定义高光颜色数值
+    _Emission("Emission Color",Color)=(0,0,0,0)						//定义自发光颜色数值
+    _Shininess("Shininess",Range(0.01,1))=0.7						//定义高光系数数值
+    _MainTex ("Base (RGB)", 2D) = "white" {}							//定义纹理数值
+  }
+  SubShader {
+    Pass{
+      Material{													//材质块
+        Diffuse [_Color]											//漫反射
+        Ambient [_Color]											//环境光
+        Shininess [_Shininess]									//高光系数
+        Specular [_SpecColor]									//高光
+        Emission [_Emission]										//自发光
+      }
+      照明在//开启光照  												
+      SeparateSpecular On						//允许高光使用一个不同于主颜色的颜色
+      SetTexture [_MainTex]{										//处理纹理块
+      constantColor [_Color]										//定义颜色值
+      Combine texture*primary DOUBLE,texture*constant				//计算最终颜色
+}}}}
