@@ -1,0 +1,23 @@
+Shader "Custom/Blend" {
+	Properties {
+		_Color ("Main Color", Color) = (1,1,1,1)
+		_MainTex ("Albedo (RGB)", 2D) = "white" {}
+	}
+	SubShader {
+		Tags { "Queue"="Transparent" }
+		Pass{
+			Material{
+				Diffuse [_Color]
+				Ambient [_Color]
+			}
+			Blend SrcAlpha OneMinusSrcAlpha
+			Lighting On
+			SetTexture [_MainTex]{
+				constantColor [_Color]
+				Combine texture*primary DOUBLE,texture*constant
+			}
+		}
+	} 
+	FallBack "Diffuse"
+}
+
