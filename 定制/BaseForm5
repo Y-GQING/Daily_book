@@ -1,0 +1,24 @@
+Shader "Custom/BaseForm5" {
+  Properties {
+    _MainTex ("Texture", 2D) = "white" {}								//2D纹理数值
+    _ColorTint ("Tint", Color) = (1.0, 0.6, 0.6, 1.0)					//调色数值
+  }
+  SubShader {
+    Tags { "RenderType" = "Opaque" }
+    CGPROGRAM
+    #pragma surface surf Lambert finalcolor:mycolor				//表面着色器编译指令
+    struct Input {												//Input结构体
+      float2 uv_MainTex;											//uv纹理坐标
+    };
+    fixed4 _ColorTint;											//调色数值属性
+    sampler2D _MainTex;										// 2D纹理属性
+    void mycolor(Input IN, SurfaceOutput o, inout fixed4 color){			//最终颜色修改函数
+      color *= _ColorTint;									//通过调色数值修改最终颜色
+    }
+    void surf (Input IN, inout SurfaceOutput o) {						//表面着色器函数
+      o.Albedo = tex2D (_MainTex, IN.uv_MainTex).rgb;		//从纹理提取颜色为漫反射颜色赋值
+    }
+    ENDCG
+  }
+  Fallback "Diffuse"												//降级着色器
+}
