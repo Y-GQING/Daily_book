@@ -1,0 +1,31 @@
+Shader "Custom/BaseForm2" {
+  Properties {													//定义属性块
+    _Color ("Color", Color) = (1,1,1,1) 								//定义主颜色数值
+    _MainTex ("Albedo (RGB)", 2D) = "white" {}						//定义纹理数值
+    _Glossiness ("Smoothness", Range(0,1)) = 0.5						//定义高光系数数值
+    _Metallic ("Metallic", Range(0,1)) = 0.0							//定义金属材质系数数值
+  }
+  SubShader {
+    Tags { "RenderType"="Opaque" }								//标签
+    LOD 200													//LOD数值
+    CGPROGRAM
+    #pragma surface surf Standard fullforwardshadows					//表面着色器编译指令
+    #pragma target 3.0											//着色器编译目标
+    sampler2D _MainTex;										//2D纹理属性
+    struct Input {												//定义输入参数结构体
+      float2 uv_MainTex;											//纹理UV坐标
+    };
+    half _Glossiness;											//定义高光系数属性
+    half _Metallic;												//定义金属材质系数属性
+    fixed4 _Color;												//定义主颜色属性
+    void surf (Input IN, inout SurfaceOutputStandard o) {					//表面着色器函数
+      fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;		//根据UV坐标从纹理提取颜色
+      o.Albedo = c.rgb;											//设置颜色
+      o.Metallic = _Metallic;										//设置金属材质系数
+      o.Smoothness = _Glossiness;									//设置高光系数
+      o.Alpha = c.a;												//设置透明度
+    }
+    ENDCG
+  } 
+  FallBack "Diffuse"												//降级着色器
+}
