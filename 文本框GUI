@@ -1,0 +1,138 @@
+package secondprogramming;
+
+import  javax.swing.*;
+import  java.awt.*;
+import java.awt.event.*;
+
+public  class   Register extends JFrame  implements  ActionListener,ItemListener{
+	
+
+	//创建类的各个属性
+	private  JTextField  name = new   JTextField(20);
+	private  JPasswordField   password  = new JPasswordField(20);
+	private  ButtonGroup   group;
+	private JRadioButton  man,woman;
+	private JCheckBox   interest1,interest2,interest3;
+	private JComboBox  address;
+	private JTextArea  contents =  new  JTextArea(7,24);
+	private JLabel   label[] =  new JLabel[5];
+	private JButton button;
+	private String   info[] =  new String[5];
+	public    Register()      //构造方法
+	
+  
+	//程序定义了register类实现用户的信息输入与显示功能，用户的输入有多种方式，用户名的输入通过单行文本框JTextFied实现，用户的密码的输入通过密码文本框JPasswordField实现，用户的性别确定是通过单选按钮JRadioButton实现
+	//用户可以拥有多个兴趣，对兴趣的选择通过复选框JCheckBox实现，用户所在区县的选择通过下拉列表框JComboBox实现。
+	//
+  
+{
+		super  ("用户注册信息");
+		setSize(330,300);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		label[0]  = new   JLabel("用户名：");
+		label[1]  = new   JLabel("用户密码：");
+		label[2] = new   JLabel("性别：");
+		label[3] = new   JLabel("爱好:");
+		label[4] = new   JLabel("家庭住址：");
+		button   =  new JButton("确定：");
+		man  =  new   JRadioButton("男",true);
+		woman  =  new   JRadioButton("女");
+		group  =  new   ButtonGroup();
+		group.add(man);     //将按钮加入到ButtonGroup对象group中
+		group.add(woman);
+		interest1  =new JCheckBox("游泳");
+		interest2  =new JCheckBox("音乐");
+		interest3  =new JCheckBox("摄影");
+		address =  new JComboBox();
+		address.addItem("合肥");
+		address.addItem("芜湖");
+		address.addItem("东城");
+		address.addItem("西城");
+		address.addItem("崇文");
+		address.addItem("宣武");
+		address.addItem("朝阳");
+		address.addItem("石景山");
+		contents.setLineWrap(true);
+		Container c= getContentPane();
+		c.setLayout(new  FlowLayout());
+		c.add(label[0]);
+		c.add(name);
+		c.add(label[1]);
+		c.add(password);
+		c.add(label[2]);
+		c.add(man);
+		c.add(woman);
+		c.add(label[3]);
+		c.add(interest1);
+		c.add(interest2);
+		c.add(interest3);
+		c.add(label[4]);
+		c.add(address);
+		c.add(button);
+		c.add(contents);
+		button.addActionListener(this);
+		man.addItemListener(this);
+		woman.addItemListener(this);
+		interest1.addItemListener(this);
+		interest2.addItemListener(this);
+		interest3.addItemListener(this);
+		address.addActionListener(this);
+		setVisible(true);
+		
+}
+	public  void actionPerformed(ActionEvent  e) {
+		
+	if(e.getSource()  ==  button) {
+	   contents.setText("用户名："+  name.getText() +"\n  密码："+  new  String(password.getPassword()) +"\n  性别："+info[0]+"\n  爱好："+info[1]+info[2]+info[3]+"\n家庭住址:"+info[4]);
+	   for  (int  i=0;i<info.length;i++)
+		   info[i] = "";
+	
+	}
+	else  if (e.getSource() == address){
+		info[4]  =  (String)address.getSelectedItem();
+	}
+	
+	}
+	
+	public void  itemStateChanged(ItemEvent e) {
+		if (e.getSource()  ==  man) {
+			info[0] = "男";
+		}
+		if(e.getSource()  ==woman) {
+			info[0] = "女";
+		}
+		if (e.getSource() ==  interest1) {
+			info[1] = interest1.isSelected()?  interest1.getText():"";
+		}
+		
+		if(e.getSource() == interest2) {
+			info[2] = interest2.isSelected()?  interest2.getText():"";
+		}
+		if(e.getSource() == interest3) {
+			info[3] = interest3.isSelected()?  interest3.getText():"";
+		}
+	}
+	public static void main(String[] args) {
+		// TODO 自动生成的方法存根
+
+	Register   input  =new  Register();
+	}
+}
+///文本框是GUI中用户和程序进行数据交互的主要途径，“java.swing"包中提供3种文本框，单行文本框（JTextField),密码文本框（JPasswordField）和多行文本域JTextArea,它们都是javax.swing.text包中的JTextComponent类的子类
+jtextfield和jpasswordfield都是单行文本框，jpasswordfield是jtextfield的子类，它在jtextfield的基础上，增加了密码处理的方法。密码文本框接受用户输入的字符，但是隐藏用户输入的字符，默认以“*”的方式显示。多行文本
+域是另一种类型的文本框，它可以显示多行文本。
+单选框jradiobutton是只有两种状态的选择的框，选中状态和未选中状态.一般情况下，多个单选框被放置在一个按钮组buttonGroup中，同时只能有一个单选按钮被选中。
+复选框JCheckBox也只是具有“选中/未选中”两种状态，它与单选按钮的区别在于：当存在多个复选框的时候，同时可以有多个复选框被选中。
+当用户单击单选框和复选框的选择按钮时，都会触发ItemEvent事件和ActionEvent，如果为它们添加了actionlistener监听器，actionevent事件由方法actionperfomed()
+进行处理，如果为他们添加了itemlistener监听器，itemevent事件将由方法itemstatechange()进行处理
+下拉列表框jcombobox在GUI上表现为一个带箭头的的文本框，当用户选择一个某一选项后，被选择的选择内容会出现在文本框中，并触发actionevent事件，该事件由
+实现actionlistener接口的对象监听，在方法actionperformed()中处理。
+
+
+
+
+
+
+
+
+
