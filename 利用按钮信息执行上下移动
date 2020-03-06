@@ -1,0 +1,172 @@
+package textmove;
+
+import   java.awt.*;
+import   java.awt.event.*;
+import   javax.swing.*;
+
+
+//创建一个TextMove类，实现利用按钮移动信息
+
+public class TextMove  extends  JFrame  implements   ActionListener{
+
+	private TheMessagePanel messagePanel;
+	private JButton jbUP,jbDOWN;
+	
+	
+//入口方法
+	public static void main(String[] args) {
+		// TODO 自动生成的方法存根
+   TextMove frame = new TextMove();
+   frame.pack();
+   frame.setVisible(true);
+  		
+	}
+   public TextMove() {
+	   setTitle("用按钮移动信息");
+	   setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	   messagePanel  = new TheMessagePanel("请通过按钮上下移动");
+	   messagePanel.setBackground(Color.blue);    //   此处对于颜色的定义会有多种，可以调试看一下
+	   JPanel jpButtons = new  JPanel();  //定义一个面板存储按钮
+	   jpButtons.setLayout(new  FlowLayout());
+	   jpButtons.add(jbUP  = new JButton());   //将按钮up加入面板jpButton中
+	   jpButtons.add(jbDOWN = new JButton());   //将按钮down加入面板jpButton中
+	   jbUP.setText("up");
+	   jbDOWN.setText("down");
+	   jbUP.setToolTipText("向上移动文本");
+	   jbDOWN.setToolTipText("向下移动文本");
+	   getContentPane().setLayout(new  BorderLayout());
+	   getContentPane().add(messagePanel,BorderLayout.CENTER);
+	   getContentPane().add(jpButtons,BorderLayout.SOUTH);
+	   jbUP.addActionListener(this);
+	   jbDOWN.addActionListener(this);
+ 
+	   
+   }
+	
+	
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {   //处理按钮事件
+		// TODO 自动生成的方法存根
+		if(e.getSource()  == jbUP) {
+			up();
+		}
+		else  if(e.getSource() ==  jbDOWN) {
+			down();
+		}
+		
+	}
+
+	private void up() { //在面板上向上移动消息
+		int y  =  messagePanel.getYCoordinate();
+		if(y >10) {
+			messagePanel.setYCoordinate(y - 10);
+			messagePanel.repaint();
+		}
+		
+	}
+	private void down()  	{ //在面板上向上移动消息
+		int y  =  messagePanel.getYCoordinate();
+		if(y <messagePanel.getSize().height - 10);
+		{
+			messagePanel.setYCoordinate(y + 10);
+			messagePanel.repaint();
+		}
+	}
+}
+
+
+   class TheMessagePanel  extends  JPanel{   //创建一个TheMessagePanel类，用来在面板上
+	                                         //显示信息
+	   private String  message;
+	   private int   xCoordinate  = 50;
+	   private int   yCoordinate  = 50;
+       private boolean   centered;
+       private  TheMessagePanel() {}
+       public TheMessagePanel(String  message) {    //创建一个带有消息参考构造器
+    	   this.message  =  message;
+    	   
+       }
+       public  String  getMessage() {
+    	   return   message;
+    	  
+       }
+       public   void setMessage (String message) {
+    	   this.message  = message;
+    	   
+       }
+       public   int getXCooldinate() {
+    	   return   xCoordinate;
+       }
+       public  void   setXCoordinate(int  x) {
+    	   this.xCoordinate  = x;
+       }
+       public   int getYCoordinate() {
+    	   return  yCoordinate; 
+       }
+	   public   void  setYCoordinate(int y) {
+		   this.yCoordinate  = y;  
+	   }
+	   public   boolean   isCentered() {
+		   return   centered;
+	   }
+	   public   void   setCentered(boolean  centered) {
+		   this.centered   =centered;
+		   
+	   }
+	   
+	   
+	   public   void   paintComponent(Graphics  g) {
+		   super.paintComponent(g);
+		   if(centered) {
+			   FontMetrics   fm  =  g.getFontMetrics();
+			   int  w  =fm.stringWidth(message);    //得到字符串宽度
+			   int  h  =fm.getAscent();             //得到字符串高度
+			   xCoordinate   = (getWidth() - w)/2;
+			   yCoordinate   = (getHeight() +h)/2;
+			   
+		   }
+		   g.drawString(message,xCoordinate,yCoordinate);
+		   
+	   }
+	   public Dimension   getPreferredSize() {
+		   return   new  Dimension(300,300);
+	   }
+	   public Dimension    getMinimumSize() {
+		   return    new   Dimension(300,200);
+	   }
+	
+   }
+
+
+
+
+
+//利用按钮实现信息的上下移动，在面板上显示一条信息，并利用up和down两个按钮移动信息，每次移动10个像素
+   //
+   //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
