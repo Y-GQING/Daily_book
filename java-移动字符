@@ -1,0 +1,126 @@
+package keymove;
+
+  import javax.swing.*;
+  import java.awt.*;
+  import java.awt.event.*;
+
+
+
+
+
+public class MoveCharacter extends JApplet 
+{
+     private   Keyboard  panel  =   new   Keyboard();
+     public    void   init()
+     {                                     //初始化
+    	 getContentPane().add(panel);      //添加一个键盘面板来接受和显示用户的输入
+	     Focus();
+     }
+     public   void   Focus()               //在面板上设置焦点
+     {
+    	 
+    	 panel.requestFocus();
+     }
+     
+	public static void main(String[] args) 
+	{    //程序执行入口方法
+		// TODO 自动生成的方法存根
+           JFrame  f  =   new   JFrame("使用键盘来移动字符");
+		   f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		   MoveCharacter  aplt   =  new   MoveCharacter();      //创建一个Applet实例
+		   f.getContentPane().add(aplt,BorderLayout.CENTER);
+		   aplt.start();
+		   aplt.init();
+		   f.setSize(350,350);
+		   f.setVisible(true);
+		   aplt.Focus();     //在panel面板上设置焦点
+
+	}
+
+}
+
+  //创建一个Keyboard类来接受键盘的输入
+  class   Keyboard   extends    JPanel   implements     KeyListener   //此处应该在后添加
+  {
+	  
+	  private   char  KeyChar   =  'A';
+	  private   int    x     =  200 ;
+	  private   int    y     =  200 ;
+	  
+	  public    Keyboard()
+	  {
+		  addKeyListener(this);
+	  }
+	  public   void   KeyReleased(KeyEvent  event) 
+	  {
+		   
+	  }
+	  public   void  KeyTyped(KeyEvent  event)
+	  
+	  {
+		  
+	  }
+	  
+	  public  void   KeyPressed(KeyEvent  event)
+	  {
+		 switch  (event.getKeyCode())
+		 {
+		   case   KeyEvent.VK_RIGHT:  x += 20;break;
+		   case   KeyEvent.VK_LEFT:   x -= 20;break;
+		   case   KeyEvent.VK_DOWN:  y += 20;break;
+		   case   KeyEvent.VK_UP:   y -= 20;break;
+		   default:KeyChar = event.getKeyChar();
+		   
+		 }
+		   repaint();
+	  }
+	  public  void  paintComponent(Graphics  graph)    //画出字符  
+	  {
+		  super.paintComponent(graph);
+		  graph.setFont(new  Font ("TimeNewRoman",Font.BOLD,72));
+		  graph.drawString(String.valueOf(KeyChar), x, y);
+	  }
+	  
+	  
+	  
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO 自动生成的方法存根
+		
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO 自动生成的方法存根
+		
+	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO 自动生成的方法存根
+		
+	}  
+  }
+
+//显示用户输入字符的程序，用户可以使用键盘上的箭头键上下左右移动字符。按下一个非光标键，就会显示该键对应的字符
+  //
+  //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
