@@ -1,0 +1,49 @@
+package allstar;
+
+
+   import  java.awt.*;
+   import  java.awt.event.*;
+   import  javax.swing.*;
+   
+   
+   
+
+public class ALLStar   extends      JFrame  {   //创建五个按钮
+	JButton   button1   =   new     JButton("雍国庆");
+	JButton   button2   =   new     JButton("姚明");
+	JButton   button3   =   new     JButton("邓肯");		
+	JButton   button4   =   new     JButton("纳什");
+	JButton   button5   =   new     JButton("傅里叶");
+	
+	public   ALLStar()    //默认构造器
+	{
+		super ("全明星");
+		setSize("400,400");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPanel  pane   =  new   JPanel();
+		FlowLayout L  =   new   FlowLayout(FlowLayout.LEFT);
+		pane.setLayout(L);
+		pane.add(button1);
+		pane.add(button2);
+		pane.add(button3);
+		pane.add(button4);
+		pane.add(button5);
+		setContentPane(pane);
+		setVisible(true);
+		
+	}
+	
+	private void setSize(String string) {
+		// TODO 自动生成的方法存根
+		
+	}
+
+	public static void main(String[] args) {
+		// TODO 自动生成的方法存根
+        JFrame  f   =  new   ALLStar();
+        
+		
+		
+	}
+
+}
