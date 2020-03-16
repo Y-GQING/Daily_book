@@ -1,0 +1,58 @@
+package inputStreamfile;
+    
+
+
+   import  java.io.*;
+   
+
+
+   public class KeyBoardFile {    //标准输入流中读取数据，并存储到文件中
+
+	    public  static   boolean KeyBoardFile(String fileName) {
+	    	File  file  =  new  File(fileName);
+	    	//声明输入流和输出流
+	    	PrintWriter  pw =   null;
+	    	BufferedReader  in  = null;
+	    	
+	    	try {
+	    		//为输入文件建立一个写入器
+	    		pw = new  PrintWriter(new FileWriter(file));
+	    		System.out.println("请输入文件内容，输入end结束");
+	    		//用bufferedReader包装标准输入流
+	    		in  =  new  BufferedReader(new  InputStreamReader(System.in));
+	    		String  inputLine  = null;
+	    		while(((inputLine = in.readLine()) !=  null) &&  (!inputLine.equals("end"))) {
+	    			pw.println(inputLine);
+	    		}
+	    		pw.flush();
+	    		pw.close();
+	    		return  true;
+	    		
+	    	}
+	    	catch  (IOException  ioe) {
+	    		System.out.println(ioe.getMessage());
+	    		return  false;
+	    	}
+	    	finally {
+	    		if(in   !=  null) {
+	    			try {
+	    				in.close();
+	    			}
+	    			catch(IOException  ioe) {
+	    				ioe.printStackTrace();
+	    			}
+	    		}
+	    		
+	    	}
+	    	
+	    }
+	       
+	public static void main(String[] args) {   // 应用程序入口方法
+		// TODO 自动生成的方法存根
+    if(args.length>0) {
+    	String  fileName  = args[0];
+    	KeyBoardFile.KeyBoardFile(fileName);
+        }	
+	}
+
+}
