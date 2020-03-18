@@ -1,0 +1,83 @@
+
+
+   class AndDian {
+     private   int row;
+     private   int col;
+     private   int [] []array;   //定义数组
+     public  AndDian()     // 无参数构造方法
+     { 
+    	 row =0;
+    	 col =0;
+    	 int [][] array =  new  int[row][col];
+     }
+	
+	 public  AndDian(int arow,int acol,int  aarray[][])   //含参数构造方法
+	 {
+		 row = arow;
+		 col = acol;
+		 array =  aarray;
+		 
+	 }
+	
+	public void printOut(int a[][])   //显示数组信息
+	{
+		  System.out.println("二维数组为：");
+		    for  (row =0;row<a.length;row++)
+		    {
+		    	for(col = 0;col<a[row].length;col++)
+		    		System.out.println(a[row][col] +"");
+		    	System.out.println();
+		    }
+	}
+	
+	void getAndDian(int  a[][])    
+	{
+		int  hang=0;    int lie=0; 
+		for(row=0;row<a.length;row++)       //求每一行的最最大值
+		{
+			int  max  = a[row][0];
+			for (col =0;col<a[row].length;col++)
+			{
+				if(a[row][col]>=max)
+				{
+					max=a[row][col];  //用变量max存储行中的最大值
+					lie = col;        //用变量lie存储一行最大值所在的列
+				}
+			}
+			int  min =max;
+			for(int  row=0;row<a.length;row++)
+			{
+				if(a[row][lie]<=min)
+				{
+					min  = a[row][lie];   //用变量min存储此列中的最小值
+					hang = row;           //用变量hang存储此列行中最小值所在的行
+				
+				}
+			}
+			if(row == hang)    // 此列中最小值所在的行是否与原来的行相等
+			{
+				System.out.println("鞍点在：第"+(row+1)+"行，第"+(lie+1)+"列");
+				System.out.println("鞍点是："+a[row][lie]);
+			}
+		}
+			
+	}
+   	
+ }
+	
+   public   class  AndDianTest
+   {
+
+	public static void main(String[] args) 
+	{
+		// TODO 自动生成的方法存根
+
+		int [][]array1  = {{12,13,8,433},{0,36,20,723,123,2301},{42,564,433,56,1,5000}};
+		AndDian   m  = new AndDian(array1.length,array1[0].length,array1);
+		m.printOut(array1);
+		m.getAndDian(array1);
+	
+		
+	}
+
+}
