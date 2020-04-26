@@ -1,0 +1,73 @@
+package TEST21;
+
+
+
+public class Engine {
+private int displacement;
+private int power;
+public  Engine() {
+	displacement = 1500;
+	power = 90;
+}
+	public String  showInfo() {
+		String  info = "排量："+displacement +"cc:最大功率："+power+"马力";
+		return  info;
+				
+	}
+	
+	public   void   start() {
+		System.out.println("发动机启动....");
+		
+	}
+	public void stop() {
+		System.out.println("发动机熄火.....");
+	}
+	
+   }
+
+
+public class   Vehicle{
+  private   Engine engine  = new Engine();
+  private  int topspeed;
+  private  String  model;
+  private  String  color;
+  public   Vehicle()
+  {
+ model ="马自达";
+ color ="红色";
+ topspeed = 120;
+}
+
+  public String  showInfo()
+  {
+	  String info  =  "车型：" + model +"\t颜色："+color+"\t最高速度："+topspeed+"\n发动机："+engine.showInfo();
+	  return  info;
+	  
+  }
+ public  void  start() {
+	 engine.start();
+	 System.out.println("汽车发动~~~");
+ }
+ public void  speedUp() {
+	 System.out.println("汽车加速~~~~");
+	 
+ }
+public  void  speedDown() {
+	System.out.println("汽车减速~~~~~");
+}
+public  void  stop() {
+	System.out.println("汽车停止~~~~~~~~~");
+	}
+
+	public static void main(String[] args) {
+		// TODO 自动生成的方法存根
+
+	Vehicle   car  = new Vehicle();
+	System.out.println(car.showInfo());
+	car.start();
+	car.speedUp();
+	car.speedDown();
+	car.stop();				
+	}
+
+}
