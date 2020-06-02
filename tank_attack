@@ -1,0 +1,47 @@
+ using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class s_move : MonoBehaviour {
+   
+    // Use this for initialization
+    void Start () {
+        qiu = GetComponent<Rigidbody>();
+
+	}
+
+    public Rigidbody qiu;
+    public float  movespeed=5;
+    private int score = 0;
+    public Text  fenshu;
+    public GameObject shenli;
+	// Update is called once per frame
+	void Update () {
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        qiu.AddForce(new Vector3 (x, 0, z) * movespeed);
+	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "box")
+        {
+            Destroy(collision.collider.gameObject);
+        }
+    }
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.tag == "box")
+        {
+            score = score + 1;
+            fenshu.text = score.ToString();
+            Destroy(collider.gameObject);
+        }
+        if (score == 3)
+        {
+            shenli.SetActive(true);
+        }
+    }
+}
+//此文档创作于22年六月二日，目的在于当物体开始接受键盘上的输入时，碰撞到的物体时，会有分数的加减，然后被碰撞的物体会消失。
