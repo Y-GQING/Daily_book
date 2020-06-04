@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class welcome : MonoBehaviour {
+
+    public Texture2D Title;//游戏标题贴图
+    public Texture2D Begin;//开始按钮贴图
+    public GUIStyle myStyle;//自定义GUIStyle
+
+	// Use this for initialization
+	void Start () {	
+	}
+	// Update is called once per frame
+	void Update () {
+		
+	}
+     void OnGUI()
+    {
+        float T_width = Screen.width * 0.6f; //标题的宽度为屏幕的0.6倍数
+        float T_height = Screen.height * 0.7f;//标题的宽度为屏幕的0.7倍数
+        GUI.DrawTexture(new Rect(
+             Screen.width * 0.5f - T_width / 2, Screen.height * 0.4f - T_height / 2, T_width, T_height), Title);
+        float b_width = Screen.width * 0.4f;
+        float b_height = Screen.height * 0.2f;
+        if(GUI.Button(new Rect(Screen.width*0.5f -b_width/2,Screen.height*0.7f - b_height / 2, b_width, b_height), Begin, myStyle))
+        {
+            Application.LoadLevel("BATGAME");//加载batgame的场景
+        }     
+    }
+}
+//主要实现界面的呈现和和界面的转换，声明游戏的标题贴图对象，开始按钮贴图以及自定义的guistyle对象。绘制游戏标题，为了实现场景中画面自适应，需要对对象的尺寸进行计算，以保证标题对象在屏幕上的适当的位置进行计算
