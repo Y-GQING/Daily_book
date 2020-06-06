@@ -1,0 +1,57 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ScoreBoard : MonoBehaviour {
+    int sco = 0;  //储存成绩
+    public GameObject BAT;   //蝙蝠游戏对象
+    public GameObject NumSprite1;//十位数字贴图对象
+    public GameObject NumSprite2;//个位数字的贴图对象
+    public Sprite[] Num;//数字图片数字
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        sco = BAT.GetComponent<BatContral>().score;  //获取玩家的成绩
+        showScore(sco); //绘制计分板
+	}
+    void showScore(int num)//绘制成绩的方法
+    {
+        int n1; //十位数字
+        int n2;//个位数数字
+        if (num >= 100)//大于100，默认成绩为99
+        {
+            n1 = 9;
+            n2 = 9;
+        }
+        else
+        {
+            n1 = num / 10;  //整除10，获取十位数数字
+            n2 = num % 10;  //对10取余，获取个位数数字
+        }
+        if (n1 == 0)  //如果十位数是零，不对十位不绘制
+        {
+            NumSprite1.transform.gameObject.SetActive(false);
+        }
+        else //如果非零，设为可用，进行绘制
+        {
+            NumSprite1.transform.gameObject.SetActive(true);
+            NumSprite1.GetComponent<SpriteRenderer>().sprite = Num[n1];
+        }
+        if (n1 == 0 && n2 == 0)   //十位和个位数都是零，都不绘制
+        {
+            NumSprite2.transform.gameObject.SetActive(false);
+            
+        }
+        else
+        {
+            NumSprite2.transform.gameObject.SetActive(true);
+            NumSprite2.GetComponent<SpriteRenderer>().sprite = Num[n2];
+        }
+    }
+
+}
+//主要用于声明变量,主要用于储存玩家的成绩的变量，蝙蝠的游戏对象，表示十位数和个位数的纹理贴图，以及存储图片的数字数组
